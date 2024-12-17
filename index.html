@@ -16,47 +16,77 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/customcss.css" rel="stylesheet"/>
     <style>
-        /* Add padding to the body to ensure the top navbar does not cover the content */
-        body {
-            padding-top: 100px; /* Adjust this value if needed */
-        }
-
-        /* Custom styles for top navbar */
+        /* Ensure the navbar stays on top */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1050;  /* Ensure it's above the content */
+            z-index: 1050;  /* Ensure the navbar is above the content */
         }
 
+        /* Add padding to the body to account for the fixed navbar */
+        body {
+            padding-top: 70px;  /* Adjust this value based on the height of your navbar */
+        }
+
+        /* Style the navbar for top positioning */
         .navbar-nav {
             justify-content: center; /* Center the nav items */
         }
 
-        /* Make the profile picture bigger */
         .navbar-brand img {
-            width: 200px;  /* Increase the width */
-            height: 200px; /* Increase the height */
-            border-radius: 50%;  /* Keep the circle shape */
+            width: 150px; /* Adjust the profile image size */
+            height: 150px; /* Adjust the profile image size */
+            border-radius: 50%; /* Keep it circular */
         }
 
-        /* Style for the main container content */
+        /* Ensure there's no overlap with the content */
         .container-fluid {
-            margin-top: 80px;  /* Add space so content isn't hidden under the navbar */
+            margin-top: 90px;  /* Add some space so content is not hidden under navbar */
+        }
+
+        /* Experience Section Row Styles */
+        .job-row {
+            display: block; /* Ensure each job is in its own block */
+            margin-bottom: 40px; /* Space between rows */
+        }
+
+        .job-header {
+            margin-bottom: 10px;
+        }
+
+        .job-header h3 {
+            font-size: 1.5rem; /* Adjust the job title font size */
+        }
+
+        .job-header .subheading {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .job-header span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Paragraphs within job rows */
+        .job-row p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
         }
     </style>
 </head>
 <body id="page-top">
-    <!-- Navigation (Moved to top of the page) -->
+    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="topNav">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">Naomi Rigby</span>
             <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/nay.jpg" alt="Naomi Rigby" /></span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Resume</a></li>
@@ -66,9 +96,9 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
+    <!-- Page Content-->
     <div class="container-fluid p-0">
-        <!-- About -->
+        <!-- About-->
         <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <h1 class="mb-0">
@@ -83,22 +113,45 @@
             </div>
         </section>
         <hr class="m-0" />
+        
         <!-- Experience Section -->
         <section class="resume-section" id="experience">
             <div class="resume-section-content">
                 <h2 class="mb-5">Experience</h2>
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                    <div class="flex-grow-1">
+
+                <!-- Job 1 -->
+                <div class="job-row mb-5">
+                    <div class="job-header">
                         <h3 class="mb-0">Marketing Intern</h3>
                         <div class="subheading mb-3">Entrata</div>
-                        <p>As a Marketing Intern in Revenue Management, I support strategic initiatives in product marketing, media buying, and public relations. Additionally, I contribute to website development, graphic design, and data-driven analysis to enhance brand visibility and optimize marketing performance.</p>
+                        <span class="text-primary">September 2024 - Present</span>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">September 2024 - Present</span></div>
+                    <p>As a Marketing Intern in Revenue Management, I support strategic initiatives in product marketing, media buying, and public relations. Additionally, I contribute to website development, graphic design, and data-driven analysis to enhance brand visibility and optimize marketing performance.</p>
                 </div>
-                <!-- More Experience Section Here -->
+
+                <!-- Job 2 -->
+                <div class="job-row mb-5">
+                    <div class="job-header">
+                        <h3 class="mb-0">Dental Assistant</h3>
+                        <div class="subheading mb-3">Cottonwood Dental</div>
+                        <span class="text-primary">June 2021 - December 2022</span>
+                    </div>
+                    <p>Provided chairside support during procedures, ensuring patient comfort and assisting with various treatments while maintaining a sterile environment. Utilized strong organizational and communication skills to manage patient records, schedule appointments, and educate patients on post-treatment care.</p>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="job-row mb-5">
+                    <div class="job-header">
+                        <h3 class="mb-0">Sales Associate</h3>
+                        <div class="subheading mb-3">Katie Waltman</div>
+                        <span class="text-primary">January 2022 - July 2022</span>
+                    </div>
+                    <p>Provided exceptional customer service on the sales floor, assisting clients with product selection and creating personalized shopping experiences. Utilized strong product knowledge and communication skills to drive sales, maintain store organization, and support visual merchandising efforts.</p>
+                </div>
             </div>
         </section>
         <hr class="m-0" />
+        
         <!-- Education Section -->
         <section class="resume-section" id="education">
             <div class="resume-section-content">
@@ -112,37 +165,26 @@
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2023 - Present</span></div>
                 </div>
-                <!-- More Education Section Here -->
+
+                <!-- Highland High School -->
+                <div class="d-flex flex-column flex-md-row justify-content-between">
+                    <div class="flex-grow-1">
+                        <h3 class="mb-0">Highland High School</h3>
+                        <div class="subheading mb-3">Student Body Vice President</div>
+                        <p>GPA: 3.9</p>
+                    </div>
+                    <div class="flex-shrink-0"><span class="text-primary">August 2019 - June 2023</span></div>
+                </div>
             </div>
         </section>
         <hr class="m-0" />
+        
         <!-- Skills Section -->
         <section class="resume-section" id="skills">
             <div class="resume-section-content">
                 <h2 class="mb-5">Skills</h2>
                 <ul class="fa-ul mb-0">
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>Leadership</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span>HTML</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Excel</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Problem Solving</li>
                     <li><span class="fa-li"><i class="fas fa-check"></i></span>Project Management</li>
-                </ul>
-            </div>
-        </section>
-        <hr class="m-0" />
-        <!-- Interests Section -->
-        <section class="resume-section" id="interests">
-            <div class="resume-section-content">
-                <h2 class="mb-5">Interests</h2>
-                <p>I am passionate about outdoor activities, including hiking, skiing, and exploring nature, which allow me to stay active and connect with the environment. These experiences not only help me recharge but also inspire my creativity and drive in both personal and professional settings.</p>
-            </div>
-        </section>
-        <hr class="m-0" />
-        <!-- Awards Section -->
-        <section class="resume-section" id="awards">
-            <div class="resume-section-content">
-                <h2 class="mb-5">Awards & Certifications</h2>
-                <ul class="fa-ul mb-0">
-                    <li><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Sterling Scholar</li>
-                    <li><span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>Academic Allstate</li>
-                </ul
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Organization</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Excel</li>
