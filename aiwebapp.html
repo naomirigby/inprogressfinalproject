@@ -3,185 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
+    <title>Racing Game</title>
     <style>
+        /* Basic styles for the game */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            background-color: #2c3e50;
+            font-family: Arial, sans-serif;
             flex-direction: column;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
         }
-        canvas {
-            border: 2px solid black;
-            background-color: #fff;
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #34495e;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
         }
-        h1 {
+
+        .navbar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            color: #27ae60;
+        }
+
+        /* Game container */
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: #34495e;
+            border: 2px solid #fff;
+            overflow: hidden;
+            margin-top: 60px; /* Add space below the navbar */
+        }
+
+        /* The player's car */
+        .car {
+            position: absolute;
+            bottom: 20px;
+            left: 175px;
+            width: 50px;
+            height: 100px;
+            background: url('https://via.placeholder.com/50x100/ff0000?text=CAR') no-repeat center center / cover;
+            border-radius: 5px;
+        }
+
+        /* Obstacles (other cars) */
+        .obstacle {
+            position: absolute;
+            width: 50px;
+            height: 100px;
+            background: url('https://via.placeholder.com/50x100/000000?text=NPC') no-repeat center center / cover;
+            top: -120px;
+            border-radius: 5px;
+        }
+
+        /* Score */
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Game over message */
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: red;
             font-size: 30px;
             font-weight: bold;
-            margin: 20px;
-        }
-        #score {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #game-over {
-            font-size: 24px;
-            color: red;
-            font-weight: bold;
             display: none;
+        }
+
+        /* Reset button */
+        .reset-button {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .reset-button:hover {
+            background-color: #2ecc71;
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="../index.html">Resume</a>
+        <a href="scratch.html"> Ski Page</a>
+        <!-- Replace with actual link -->
+    </div>
 
-    <h1>Snake Game</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <div id="score">Score: 0</div>
-    <div id="game-over">Game Over!</div>
+    <!-- Game Container -->
+    <div class="game-container" id="gameContainer">
+        <!-- Player Car -->
+        <div class="car" id="playerCar"></div>
 
-    <button id="startBtn">Start Game</button>
-    <button id="replayBtn" style="display: none;">Replay</button>
+        <!-- Score Display -->
+        <div class="score" id="score">Score: 0</div>
+
+        <!-- Game Over Message -->
+        <div class="game-over" id="gameOver">Game Over!</div>
+
+        <!-- Reset Button -->
+        <button class="reset-button" id="resetButton" onclick="resetGame()">Reset Game</button>
+    </div>
 
     <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+        // Select elements
+        const playerCar = document.getElementById("playerCar");
+        const gameContainer = document.getElementById("gameContainer");
+        const scoreDisplay = document.getElementById("score");
+        const gameOverDisplay = document.getElementById("gameOver");
+        const resetButton = document.getElementById("resetButton");
 
-        const gridSize = 20;
-        const canvasSize = 400;
-        let snake, food, dx, dy, score, gameOver, gameInterval;
+        let carPosition = 175; // Initial position of the player's car
+        const carSpeed = 10;
+        let obstacles = [];
+        let gameOver = false;
+        let score = 0;
 
-        // Setup the game initially
-        function initializeGame() {
-            snake = [{ x: 9 * gridSize, y: 9 * gridSize }];
-            food = { x: 5 * gridSize, y: 5 * gridSize };
-            dx = gridSize;
-            dy = 0;
-            score = 0;
-            gameOver = false;
-            document.getElementById("score").textContent = "Score: 0";
-            document.getElementById("game-over").style.display = "none";
-            document.getElementById("startBtn").style.display = "none";
-            document.getElementById("replayBtn").style.display = "none";
-        }
+        // Move player's car with arrow keys
+        document.addEventListener("keydown", (e) => {
+            if (gameOver) return;
 
-        // Draw the snake
-        function drawSnake() {
-            ctx.fillStyle = "green";
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillRect(snake[i].x, snake[i].y, gridSize, gridSize);
+            if (e.key === "ArrowLeft" && carPosition > 0) {
+                carPosition -= carSpeed;
+            } else if (e.key === "ArrowRight" && carPosition < 350) {
+                carPosition += carSpeed;
             }
+            playerCar.style.left = carPosition + "px";
+        });
+
+        // Function to create obstacles
+        function createObstacle() {
+            if (gameOver) return;
+
+            const obstacle = document.createElement("div");
+            obstacle.classList.add("obstacle");
+            const randomPosition = Math.floor(Math.random() * 3) * 125; // 0, 125, or 250
+            obstacle.style.left = randomPosition + "px";
+            obstacle.style.top = "-120px";
+            gameContainer.appendChild(obstacle);
+            obstacles.push(obstacle);
         }
 
-        // Draw the food
-        function drawFood() {
-            ctx.fillStyle = "red";
-            ctx.fillRect(food.x, food.y, gridSize, gridSize);
-        }
+        // Move obstacles down the screen
+        function moveObstacles() {
+            if (gameOver) return;
 
-        // Change direction
-        function changeDirection(event) {
-            if (event.key === "ArrowUp" && dy === 0) {
-                dx = 0;
-                dy = -gridSize;
-            } else if (event.key === "ArrowDown" && dy === 0) {
-                dx = 0;
-                dy = gridSize;
-            } else if (event.key === "ArrowLeft" && dx === 0) {
-                dx = -gridSize;
-                dy = 0;
-            } else if (event.key === "ArrowRight" && dx === 0) {
-                dx = gridSize;
-                dy = 0;
-            }
-        }
+            obstacles.forEach((obstacle, index) => {
+                let obstacleTop = parseInt(obstacle.style.top);
+                obstacle.style.top = obstacleTop + 10 + "px";
 
-        // Move the snake
-        function moveSnake() {
-            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-            snake.unshift(head);
-            if (head.x === food.x && head.y === food.y) {
-                score += 10;
-                document.getElementById("score").textContent = "Score: " + score;
-                placeFood();
-            } else {
-                snake.pop();
-            }
-        }
-
-        // Place food at random position
-        function placeFood() {
-            const x = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
-            const y = Math.floor(Math.random() * (canvasSize / gridSize)) * gridSize;
-            food = { x, y };
-        }
-
-        // Check for collisions
-        function checkCollisions() {
-            const head = snake[0];
-            // Check wall collision
-            if (head.x < 0 || head.x >= canvasSize || head.y < 0 || head.y >= canvasSize) {
-                gameOver = true;
-            }
-            // Check self-collision
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
-                    gameOver = true;
+                // Check for collision
+                if (
+                    obstacleTop + 100 >= 480 &&
+                    parseInt(obstacle.style.left) === carPosition
+                ) {
+                    endGame();
                 }
-            }
+
+                // Remove obstacle if it moves off screen
+                if (obstacleTop > 600) {
+                    obstacle.remove();
+                    obstacles.splice(index, 1);
+                    score++;
+                    scoreDisplay.textContent = "Score: " + score;
+                }
+            });
         }
 
-        // Draw the game
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawSnake();
-            drawFood();
-            if (gameOver) {
-                clearInterval(gameInterval);
-                document.getElementById("game-over").style.display = "block";
-                document.getElementById("replayBtn").style.display = "block";
-                document.getElementById("startBtn").style.display = "none";
-            }
+        // End the game
+        function endGame() {
+            gameOver = true;
+            gameOverDisplay.style.display = "block";
+            resetButton.style.display = "inline-block"; // Show the reset button
+        }
+
+        // Reset the game
+        function resetGame() {
+            gameOver = false;
+            score = 0;
+            obstacles.forEach(obstacle => obstacle.remove()); // Remove all obstacles
+            obstacles = [];
+            scoreDisplay.textContent = "Score: " + score;
+            gameOverDisplay.style.display = "none"; // Hide the game over message
+            resetButton.style.display = "none"; // Hide the reset button
+            carPosition = 175; // Reset car position
+            playerCar.style.left = carPosition + "px"; // Update car position
+            gameLoop(); // Restart the game loop
         }
 
         // Game loop
         function gameLoop() {
-            moveSnake();
-            checkCollisions();
-            draw();
+            moveObstacles();
+            if (Math.random() < 0.02) {
+                createObstacle();
+            }
+            if (!gameOver) {
+                requestAnimationFrame(gameLoop);
+            }
         }
 
         // Start the game
-        function startGame() {
-            initializeGame();
-            document.addEventListener("keydown", changeDirection);
-            gameInterval = setInterval(gameLoop, 100); // Game runs every 100ms
-        }
-
-        // Replay the game
-        function replayGame() {
-            initializeGame();
-            document.getElementById("startBtn").style.display = "none";
-            document.getElementById("replayBtn").style.display = "none";
-            document.getElementById("game-over").style.display = "none";
-            startGame();
-        }
-
-        // Event listeners for buttons
-        document.getElementById("startBtn").addEventListener("click", startGame);
-        document.getElementById("replayBtn").addEventListener("click", replayGame);
-
-        // Initially setup
-        initializeGame();
+        gameLoop();
     </script>
 </body>
 </html>

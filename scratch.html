@@ -3,13 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Skiing Passion</title>
+    <link rel="stylesheet" href="../css/styles.css"> <!-- Correct path to styles.css -->
 </head>
 <body>
-    this is from my scratch  page
-    <a href = "../index.html">professional Page</a>
-    <div class='tableauPlaceholder' id='viz1733333869729' style='position: relative'><noscript><a href='#'><img alt='Commercial Market Outlook ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;BoeingCommercialMarketOutlook2018-2037&#47;CommercialMarketOutlook&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='BoeingCommercialMarketOutlook2018-2037&#47;CommercialMarketOutlook' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;BoeingCommercialMarketOutlook2018-2037&#47;CommercialMarketOutlook&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1733333869729');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1290px';vizElement.style.height='1027px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=HLLS2I_4Te3GTyQ5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <iframe src="https://www.churchofjesuschrist.org/?lang=eng" width="500" height="500"></iframe>
+
+    <!-- Sticky Header Bar with Title and Navigation -->
+    <header class="sticky-header">
+        <div class="header-content">
+            <h1>Skiing Passion Page</h1>
+            <p>Dedicated to my love for skiing and the mountains.</p>
+        </div>
+        
+        <!-- Navigation bar inside the sticky header -->
+        <nav class="nav-container">
+            <a href="../index.html">Resume</a>
+            <a href="aiwebapp.html">AI Web App</a>
+        </nav>
+    </header>
+    
+    <!-- Content Section -->
+    <div class="content">
+        <div class="tableau-container">
+            <h2>Top Ski Jams</h2>
+            <h3>Top Played Songs</h3>
+            
+            <div class='tableauPlaceholder' id='viz1734249813000' style='position: relative'>
+                <noscript>
+                    <a href='#'>
+                        <img alt='Dash ' src='https://public.tableau.com/static/images/Sp/SpotifyBillionsClub_17340200627600/Dash/1_rss.png' style='border: none' />
+                    </a>
+                </noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='SpotifyBillionsClub_17340200627600/Dash' />
+                    <param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image' value='https://public.tableau.com/static/images/Sp/SpotifyBillionsClub_17340200627600/Dash/1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='language' value='en-US' />
+                </object>
+            </div>
+
+            <script type='text/javascript'>
+                var divElement = document.getElementById('viz1734249813000');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                vizElement.style.width='1440px';
+                vizElement.style.height='927px';
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+        </div>
+
+        <div class="song-description">
+            <p>These are the top streamed songs on Spotify. While these are great, here are a list of my top played ski songs:</p>
+        </div>
+
+        <div class="ski-songs-list">
+            <ul>
+                <li>Althea</li>
+                <li>China Cat Sunflower</li>
+                <li>Box of Rain</li>
+                <li>D'yer M'aker</li>
+                <li>Paper Planes</li>
+            </ul>
+
+<!--this is where i add a picture-->
+            <img src="../assets/img/nay.jpg" alt="me on a ski hill" /> 
+        </div>
+
+        <div class="video-container">
+            <h2>Wake up, Chase the Gnar</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/NtZVFUvn3_U?si=Jloun4ziPuOkX_Do" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <div id="ski-gear" class="gear-list">
+            <h2>My Favorite Ski Gear</h2>
+            <ol>
+                <li>Skis
+                    <ul>
+                        <li>Rossignol Super Black Ops 98</li>
+                        <li>Head Hore 93</li>
+                    </ul>
+                </li>
+                <li>Boots
+                    <ul>
+                        <li>Tecnica Mach1 MV 115</li>
+                        <li>K2 Anthem Pro</li>
+                    </ul>
+                </li>
+                <li>Helmets
+                    <ul>
+                        <li>Giro Range MIPS</li>
+                        <li>Smith Vantage MIPS</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <br><br>
+    <a href="#top">Jump to top</a>
+    <footer>
+        <p>Enjoy your skiing journey!</p>
+    </footer>
+
 </body>
 </html>
